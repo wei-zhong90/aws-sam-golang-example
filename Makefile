@@ -1,7 +1,7 @@
 
 # These environment variables must be set for deployment to work.
-S3_BUCKET := $(S3_BUCKET)
-STACK_NAME := $(STACK_NAME)
+S3_BUCKET := cf-templates-1nhvjnuy2vpok-ap-northeast-1
+STACK_NAME := go-test
 
 # Common values used throughout the Makefile, not intended to be configured.
 TEMPLATE = template.yaml
@@ -16,7 +16,7 @@ test: install
 
 .PHONY: clean
 clean:
-	rm -f api error worker $(PACKAGED_TEMPLATE)
+	rm -f build/{api,error,worker} $(PACKAGED_TEMPLATE)
 
 .PHONY: install
 install:
@@ -27,13 +27,13 @@ update:
 	go get -u ./...
 
 api: ./service/api/main.go
-	go build -o api ./service/api
+	go build -o build/api ./service/api
 
 error: ./service/error/main.go
-	go build -o error ./service/error
+	go build -o build/error ./service/error
 
 worker: ./service/worker/main.go
-	go build -o worker ./service/worker
+	go build -o build/worker ./service/worker
 
 .PHONY: lambda
 lambda:

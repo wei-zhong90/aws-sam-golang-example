@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -35,7 +36,7 @@ var WelcomeMessageResponse = MessageResponse{"Welcome to the example API!"}
 var JobMessage = "Job sent to queue."
 
 // RootHandler is a http.HandlerFunc for the / endpoint.
-func RootHandler(w http.ResponseWriter, r *http.Request) {
+func RootHandler(w http.ResponseWriter, _ *http.Request) {
 	json.NewEncoder(w).Encode(WelcomeMessageResponse)
 }
 
@@ -89,6 +90,7 @@ func h(next http.HandlerFunc) http.Handler {
 }
 
 func main() {
+	fmt.Println("This line is printed inside main but outside lambda")
 	RegisterRoutes()
 	log.Fatal(gateway.ListenAndServe(":3000", nil))
 }

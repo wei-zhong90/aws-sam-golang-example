@@ -1,7 +1,5 @@
 /*.zip
 /aws-sam-golang-example
-/api
-/error
+build/
 /vendor
-/worker
 /packaged.yaml
